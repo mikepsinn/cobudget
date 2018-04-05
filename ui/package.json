@@ -43,7 +43,7 @@
   },
   "napa": {},
   "dependencies": {
-    "ampersand-state": "^4.5.6",
+    "ampersand-state": "=4.8.2",
     "angular": "=1.6.1",
     "angular-animate": "=1.6.1",
     "angular-aria": "=1.6.1",
@@ -63,6 +63,7 @@
     "angular_record_store": "=2.8.3",
     "bowser": "^1.0.0",
     "camelize": "^1.0.0",
+    "coffeescript": "^2.2.4",
     "debug": "^2.1.0",
     "dotenv": "^4.0.0",
     "es5-shim": "^4.0.3",
@@ -88,6 +89,7 @@
     "ng-token-auth": "lynndylanhurley/ng-token-auth",
     "node-sass": "^3.3.3",
     "recase": "^1.0.4",
+    "through2": "^2.0.3",
     "xtend": "^4.0.0"
   },
   "devDependencies": {
@@ -114,7 +116,6 @@
     "gulp-rename": "^1.2.0",
     "gulp-sass": "^2.0.4",
     "gulp-sourcemaps": "^1.5.2",
-    "gulp-util": "^3.0.1",
     "gulp-watch": "^1.2.0",
     "mocha": "^2.0.1",
     "napa": "^1.0.2",

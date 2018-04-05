@@ -2,7 +2,8 @@ gulp = require('gulp')
 watch = require('gulp-watch')
 source = require('vinyl-source-stream')
 buffer = require('vinyl-buffer')
-util = require('gulp-util')
+through2 = require('through2')
+log = require('fancy-log')
 plumber = require('gulp-plumber')
 sourcemaps = require('gulp-sourcemaps')
 extend = require('xtend')
@@ -23,8 +24,7 @@ isDeploy = (env) ->
 
 lr = undefined
 errorHandler = (err) ->
-  util.beep()
-  util.log(util.colors.red(err))
+  log(err)
 
 #
 # styles
@@ -66,7 +66,7 @@ styles = ->
     ))
     .pipe(sourcemaps.write('../maps', sourceRoot: '../styles/'))
     .pipe(gulp.dest('build/styles'))
-    .pipe(if lr then require('gulp-livereload')(lr) else util.noop())
+    .pipe(if lr then require('gulp-livereload')(lr) else through2.obj())
 
 gulp.task 'styles-build', styles
 gulp.task 'styles-watch', ['styles-build'], ->
@@ -88,14 +88,14 @@ scripts = (isWatch) ->
 
     bundle = (bundler) ->
       bundler.bundle()
-        .on('error', util.log.bind(util, "browserify error"))
+        .on('error', log.bind(log, "browserify error"))
         .pipe(plumber({ errorHandler }))
         .pipe(source('index.js'))
         .pipe(buffer())
         .pipe(sourcemaps.init(loadMaps: true))
         .pipe(sourcemaps.write('../maps'))
         .pipe(gulp.dest('build/scripts'))
-        .pipe(if lr then require('gulp-livereload')(lr) else util.noop())
+        .pipe(if lr then require('gulp-livereload')(lr) else through2.obj())
 
     args = {
       entries: ['.']
@@ -122,9 +122,9 @@ html = (isWatch) ->
   glob = 'app/index.html'
   ->
     gulp.src(glob)
-      .pipe(if isWatch then watch(glob) else util.noop())
+      .pipe(if isWatch then watch(glob) else through2.obj())
       .pipe(gulp.dest('build'))
-      .pipe(if lr then require('gulp-livereload')(lr) else util.noop())
+      .pipe(if lr then require('gulp-livereload')(lr) else through2.obj())
 
 gulp.task 'html-build', html(false)
 gulp.task 'html-watch', html(true)
@@ -143,9 +143,9 @@ assets = (isWatch) ->
   ->
     _.each assetPaths, (to, from) ->
       gulp.src(from, dot: true)
-        .pipe(if isWatch then watch(from) else util.noop())
+        .pipe(if isWatch then watch(from) else through2.obj())
         .pipe(gulp.dest(to))
-        .pipe(if lr then require('gulp-livereload')(lr) else util.noop())
+        .pipe(if lr then require('gulp-livereload')(lr) else through2.obj())
 
 gulp.task 'assets-build', assets(false)
 gulp.task 'assets-watch', assets(true)

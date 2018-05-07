@@ -29,7 +29,7 @@ class UserMailer < ActionMailer::Base
     @formatted_amount = Money.new(amount * 100, @group.currency_code).format
     mail(to: @member.name_and_email,
          from: "Cobudget Updates <updates@cobudget.co>",
-         subject: "#{admin.name} gave you funds to spend in #{@group.name}")
+         subject: "You've received funds to spend in Cobudget!")
   end
 
   def notify_funder_that_bucket_was_archived(funder: , bucket:, refund_amount: )

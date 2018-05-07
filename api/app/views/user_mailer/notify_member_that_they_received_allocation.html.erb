@@ -1,7 +1,7 @@
 <p>
-  You’ve received <%= @formatted_amount %> to fund projects with <%= @group.name %> in Cobudget!
+  You have received <%= @formatted_amount %> to spend on projects in your <%= @group.name %> Cobudget group!
 </p>
 
 <p>
-  <%= link_to 'View or Submit Projects', "#{root_url}#/groups/#{@group.id}" %>
+  Decide now which projects to allocate your funds to by <%= link_to 'checking out the current bucket proposals in your group', "#{root_url}#/groups/#{@group.id}" %> .
 </p>
